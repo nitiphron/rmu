@@ -1,0 +1,8 @@
+<div class="payment-container">
+    <h2>ชำระสินค้า</h2>
+    <div class="qr-code">
+      <qrcode [qrdata]="qrCodeData" [size]="256" [level]="'M'"></qrcode>
+    </div>
+    <p>สแกน QR Code เพื่อชำระเงินจำนวน {{ qrCodeData.split('=')[1] || 'ที่กำหนด' }} บาท</p>
+  </div>
+  

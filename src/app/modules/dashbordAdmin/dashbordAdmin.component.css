@@ -1,0 +1,33 @@
+.product-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1px; /* ระยะห่างระหว่างสินค้าแต่ละชิ้น */
+    justify-content: space-between;
+  }
+  
+  .product-item {
+    border: 8px solid #53f0ea;
+    padding: 1px;
+    width: calc(33%); /* กำหนดให้แต่ละช่องกว้างประมาณ 1 ใน 3 ของพื้นที่ที่มี */
+    box-sizing: border-box;
+  }
+  
+  .product-image {
+    width: 30%;
+    height: auto;
+    display: block;
+    margin-bottom: 1px;
+  }
+  
+   button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
