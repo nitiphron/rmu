@@ -31,6 +31,7 @@
     "mdb-ui-kit": "^6.3.0",
     "ngx-loading": "^2.0.1",
     "ngx-permissions": "^15.0.1",
+    "ngx-qrcode2": "^9.0.0",
     "primeng": "^16.9.1",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.7.5",

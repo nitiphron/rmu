@@ -1,8 +1,25 @@
 <div class="payment-container">
-    <h2>ชำระสินค้า</h2>
-    <div class="qr-code">
-      <qrcode [qrdata]="qrCodeData" [size]="256" [level]="'M'"></qrcode>
-    </div>
-    <p>สแกน QR Code เพื่อชำระเงินจำนวน {{ qrCodeData.split('=')[1] || 'ที่กำหนด' }} บาท</p>
+  <h2>หน้าชำระเงิน</h2>
+  
+  <!-- QR Code -->
+  <div class="qr-code">
+    <!-- <ngx-qrcode [qrdata]="qrCodeData" size="256"></ngx-qrcode> -->
   </div>
   
+  <p>สแกนรหัส QR ด้านล่างเพื่อชำระเงิน:</p>
+
+  <!-- Slip Image Upload -->
+  <div class="slip-upload">
+    <form (submit)="uploadSlip($event)">
+      <input type="file" accept="image/*" (change)="handleSlipUpload($event)">
+      <button type="submit">อัพโหลดสลิป</button>
+    </form>
+  </div>
+
+  <!-- Display Uploaded Slip -->
+  <div *ngIf="uploadedSlip">
+    <img [src]="uploadedSlip" alt="Uploaded Slip">
+  </div>
+
+  <p>ราคารวม: {{ qrCodeData.split('=')[1] }} บาท</p>
+</div>

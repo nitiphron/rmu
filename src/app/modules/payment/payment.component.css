@@ -1,9 +1,54 @@
 .payment-container {
-    text-align: center;
-    padding: 20px;
-  }
-  
-  .qr-code {
-    margin: 20px auto;
-  }
-  
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.qr-code {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.slip-upload {
+  margin-bottom: 20px;
+}
+
+.slip-upload form {
+  display: flex;
+  align-items: center;
+}
+
+.slip-upload input[type=file] {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.slip-upload button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+}
+
+.slip-upload button:hover {
+  background-color: #0056b3;
+}
+
+.uploaded-slip {
+  margin-top: 20px;
+}
+
+.uploaded-slip img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.total-price {
+  font-size: 18px;
+  margin-top: 20px;
+}

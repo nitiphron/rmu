@@ -1,13 +1,14 @@
 <div class="cart-container">
-    <h2>ตะกร้าสินค้า</h2>
-    <div class="cart-items">
-      <div *ngFor="let item of cartItems" class="cart-item">
-        <p>{{ item.name }} - {{ item.price }}</p>
-        <button (click)="removeFromCart(item.id)">ลบออกจากตะกร้า</button>
-      </div>
+  <h2>ตะกร้าสินค้า</h2>
+  <div class="cart-items">
+    <div *ngFor="let item of cartItems" class="cart-item">
+      <p>{{ item.name }} - {{ item.price }} บาท</p>
+      <button class="btn-remove" (click)="removeFromCart(item.id)">ลบออกจากตะกร้า</button>
     </div>
-    <p>ราคารวม: {{ totalPrice }} บาท</p>
-    <button (click)="clearCart()">ล้างตะกร้า</button>
-    <button (click)="goToPaymentPage()">ชำระสินค้า</button>
   </div>
-  
+  <p class="total-price">ราคารวม: {{ totalPrice }} บาท</p>
+  <div class="cart-buttons">
+    <button class="btn-clear" (click)="clearCart()">ล้างตะกร้า</button>
+    <button class="btn-payment" (click)="goToPaymentPage()">ชำระสินค้า</button>
+  </div>
+</div>

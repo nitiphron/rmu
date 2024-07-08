@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -11,11 +12,11 @@ import { DefaultModule } from './layouts/default/default.module';
 import { FullwidthModule } from './layouts/fullwidth/fullwidth.module';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { DataSharingService } from './modules/DataSharingService';
-import { NgxQRCodeModule } from 'angularx-qrcode'; // นำเข้าที่ถูกต้องของ angularx-qrcode
 import { CartComponent } from './modules/cart/cart.component';
 import { PaymentComponent } from './modules/payment/payment.component';
-
-@NgModule({
+import { NgxQRCodeModule } from 'ngx-qrcode2';
+ // Uncomment this line
+ @NgModule({
   declarations: [
     AppComponent,
     CartComponent,
@@ -27,13 +28,14 @@ import { PaymentComponent } from './modules/payment/payment.component';
     DefaultModule,
     FullwidthModule,
     AppRoutingModule,
+    RouterModule,
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     NgxPermissionsModule.forRoot(),
     ReactiveFormsModule,
     NgxLoadingModule.forRoot({}),
-    NgxQRCodeModule // นำเข้า NgxQRCodeModule จาก angularx-qrcode
+    NgxQRCodeModule // Ensure NgxQRCodeModule is imported
   ],
   providers: [DataSharingService],
   bootstrap: [AppComponent]
