@@ -13,6 +13,7 @@ import { UpdateProductComponent } from './modules/updateProduct/updateProduct.co
 import { ReportComponent } from './modules/report/report.component';
 import { CartComponent } from './modules/cart/cart.component';
 import { PaymentComponent } from './modules/payment/payment.component';
+import { OrderStatusComponent } from './modules/order-status/order-status.component'; // นำเข้า OrderStatusComponent
 
 const routes: Routes = [
   {
@@ -31,7 +32,8 @@ const routes: Routes = [
       { path: 'product/:productId', component: UpdateProductComponent },
       { path: 'report', component: ReportComponent },
       { path: 'cart', component: CartComponent },
-      { path: 'payment', component: PaymentComponent } // Add route for PaymentComponent
+      { path: 'payment', component: PaymentComponent }, // เส้นทางสำหรับ PaymentComponent
+      { path: 'order-status', component: OrderStatusComponent } // เส้นทางสำหรับ OrderStatusComponent
     ]
   }
 ];

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-payment',
@@ -7,33 +7,45 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./payment.component.css']
 })
 export class PaymentComponent implements OnInit {
-  qrCodeData: string = '';
-  uploadedSlip: string | null = null; // Define a property to hold the uploaded slip URL
+  qrCodeData: string = ''; // ข้อมูล QR Code
+  uploadedSlip: string | null = null; // กำหนด property เพื่อเก็บ URL ของสลิปที่อัพโหลด
+  isPaymentValid: boolean = false; // กำหนด property เพื่อเก็บสถานะการตรวจสอบการชำระเงิน
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    const price = this.route.snapshot.queryParamMap.get('amount');
+    const price = this.route.snapshot.queryParamMap.get('amount'); // ดึงราคาจาก query parameters
     if (price) {
-      this.qrCodeData = `https://example.com/payment?amount=${price}`;
+      this.qrCodeData = `https://example.com/payment?amount=${price}`; // สร้าง URL สำหรับ QR Code พร้อมจำนวนเงิน
     } else {
-      this.qrCodeData = 'https://example.com/payment';
+      this.qrCodeData = 'https://example.com/payment'; // สร้าง URL สำหรับ QR Code ไม่มีจำนวนเงิน
     }
   }
 
-  // Method to handle file selection for slip upload
+  // ฟังก์ชันจัดการการเลือกไฟล์สำหรับอัพโหลดสลิป
   handleSlipUpload(event: Event) {
-    // Implement logic to handle file selection here
     const file = (event.target as HTMLInputElement).files?.[0];
     if (file) {
-      // Optionally, you can perform additional logic here if needed
+      // หากมีไฟล์ให้เรียกใช้ฟังก์ชันอัพโหลด
+      this.uploadSlip(file);
     }
   }
 
-  // Method to handle slip upload
-  uploadSlip(event: Event) {
-    // Implement logic to handle slip upload here
-    // For demonstration purposes, just set the uploadedSlip to a mock URL
+  // ฟังก์ชันจัดการการอัพโหลดสลิป
+  uploadSlip(file: File) {
+    // ตัวอย่างการอัพโหลดสลิป สำหรับการสาธิตให้ตั้งค่า URL ของสลิปที่อัพโหลด
     this.uploadedSlip = 'https://example.com/uploads/slip.jpg';
+    this.isPaymentValid = true; // อัพเดตสถานะการตรวจสอบการชำระเงินหลังจากอัพโหลดสลิป
+  }
+
+  // ฟังก์ชันจัดการการกดปุ่มชำระเงิน
+  processPayment() {
+    if (this.isPaymentValid) {
+      // หากตรวจสอบการชำระเงินถูกต้องให้ดำเนินการชำระเงิน
+      alert('ชำระเงินเรียบร้อยแล้ว');
+      this.router.navigate(['/order-status']); // เปลี่ยนเส้นทางไปที่หน้าแสดงสถานะการสั่งซื้อ
+    } else {
+      alert('กรุณาอัพโหลดสลิปการชำระเงินก่อนดำเนินการต่อ');
+    }
   }
 }

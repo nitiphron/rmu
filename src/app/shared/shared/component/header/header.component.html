@@ -31,11 +31,11 @@
       
 
       <div class="text-end" *ngIf="null == userDetail">
-        <button type="button" class="btn btn-outline-light me-2" [routerLink]="['/login']" routerLinkActive="router-link-active" >Login</button>
-        <button type="button" class="btn btn-warning" [routerLink]="['/register']" routerLinkActive="router-link-active" >Sign-up</button>
+        <button type="button" class="btn btn-outline-light me-2 btn-success" [routerLink]="['/login']" routerLinkActive="router-link-active">Login</button>
+        <button type="button" class="btn btn-warning" [routerLink]="['/register']" routerLinkActive="router-link-active">Sign-up</button>
       </div>
       <div class="text-end" *ngIf="null != userDetail">
-        <button type="button" class="btn btn-outline-light me-2" (click)="logout()" >logOut</button>
+        <button type="button" class="btn btn-outline-light me-2 btn-danger" (click)="logout()">logOut</button>
       </div>
     </div>
   </div>

@@ -15,12 +15,15 @@ import { DataSharingService } from './modules/DataSharingService';
 import { CartComponent } from './modules/cart/cart.component';
 import { PaymentComponent } from './modules/payment/payment.component';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
- // Uncomment this line
- @NgModule({
+import { OrderStatusComponent } from './modules/order-status/order-status.component';
+
+@NgModule({
   declarations: [
     AppComponent,
     CartComponent,
-    PaymentComponent
+    PaymentComponent,
+    OrderStatusComponent
+
   ],
   imports: [
     BrowserModule,
@@ -37,7 +40,10 @@ import { NgxQRCodeModule } from 'ngx-qrcode2';
     NgxLoadingModule.forRoot({}),
     NgxQRCodeModule // Ensure NgxQRCodeModule is imported
   ],
-  providers: [DataSharingService],
+  providers: [
+    DataSharingService
+    // Add other services/providers as needed
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

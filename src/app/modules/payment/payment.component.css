@@ -1,11 +1,15 @@
 .payment-container {
-  max-width: 600px;
-  margin: 0 auto;
   padding: 20px;
-  background-color: #f9f9f9;
   border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  width: 80%;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+}
+
+h2 {
+  text-align: center;
+  color: #333;
 }
 
 .qr-code {
@@ -13,42 +17,33 @@
   margin-bottom: 20px;
 }
 
-.slip-upload {
+.qr-code-img {
+  width: 200px;
+  height: 200px;
+}
+
+.upload-slip {
+  text-align: center;
   margin-bottom: 20px;
 }
 
-.slip-upload form {
-  display: flex;
-  align-items: center;
+.uploaded-slip-img {
+  width: 200px;
+  height: 200px;
+  margin-top: 10px;
 }
 
-.slip-upload input[type=file] {
-  flex: 1;
-  margin-right: 10px;
-}
-
-.slip-upload button {
-  background-color: #007bff;
-  color: white;
+.btn-payment {
+  display: block;
+  width: 100%;
+  background-color: #2ecc71;
+  color: #fff;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 15px;
+  border-radius: 5px;
   cursor: pointer;
 }
 
-.slip-upload button:hover {
-  background-color: #0056b3;
-}
-
-.uploaded-slip {
-  margin-top: 20px;
-}
-
-.uploaded-slip img {
-  max-width: 100%;
-  border-radius: 8px;
-}
-
-.total-price {
-  font-size: 18px;
-  margin-top: 20px;
+.btn-payment:hover {
+  background-color: #27ae60;
 }

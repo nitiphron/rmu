@@ -1,7 +1,6 @@
 
 header {
-    background-color: #5efdfa; /* สีฟ้า */
-    color: #000000; /* ข้อความเป็นสีขาว */
-    padding: 1rem; /* ให้มีพื้นที่เต็มขอบ */
-  }
-  
+  background-color: #5efdfa; /* สีฟ้า */
+  color: #000000; /* ข้อความเป็นสีขาว */
+  padding: 1rem; /* ให้มีพื้นที่เต็มขอบ */
+}

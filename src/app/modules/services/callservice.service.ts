@@ -111,22 +111,24 @@ export class CallserviceService {
     return this.http.delete(API_ENDPOINT.concat('/product/deleteImgByFileName?fileName=' + fileName));
   }
 
-  // Cart management methods
   addToCart(product: any): void {
     const currentCart = this.cartSubject.value;
     currentCart.push(product);
     this.cartSubject.next(currentCart);
   }
 
+  // ฟังก์ชันลบสินค้าออกจากตะกร้า
   removeFromCart(productId: any): void {
     const currentCart = this.cartSubject.value.filter(product => product.id !== productId);
     this.cartSubject.next(currentCart);
   }
 
+  // ฟังก์ชันล้างตะกร้า
   clearCart(): void {
     this.cartSubject.next([]);
   }
 
+  // ฟังก์ชันเรียกดูรายการสินค้าในตะกร้า
   getCartItems(): Observable<any[]> {
     return this.cart$;
   }

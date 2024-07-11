@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { CallserviceService } from '../services/callservice.service';
 import { Router } from '@angular/router';
-import { CallserviceService } from '../services/callservice.service'; // Adjust the import path as needed
 
 @Component({
   selector: 'app-cart',
@@ -11,43 +11,32 @@ export class CartComponent implements OnInit {
   cartItems: any[] = [];
   totalPrice: number = 0;
 
-  constructor(
-    private router: Router,
-    private callserviceService: CallserviceService
-  ) {}
+  constructor(private callService: CallserviceService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getCartItems();
-  }
-
-  getCartItems(): void {
-    this.callserviceService.getCartItems().subscribe({
-      next: items => {
-        this.cartItems = items;
-        this.calculateTotalPrice();
-      },
-      error: error => {
-        console.error('Error loading cart items:', error);
-      }
+    this.callService.getCartItems().subscribe(items => {
+      this.cartItems = items;
+      this.calculateTotalPrice();
     });
   }
 
-  calculateTotalPrice(): void {
-    this.totalPrice = this.cartItems.reduce((total, item) => total + item.price, 0);
-  }
-
   removeFromCart(productId: any): void {
-    this.callserviceService.removeFromCart(productId);
-    this.getCartItems();
+    this.callService.removeFromCart(productId);
+    this.cartItems = this.cartItems.filter(item => item.id !== productId);
+    this.calculateTotalPrice();
   }
 
   clearCart(): void {
-    this.callserviceService.clearCart();
+    this.callService.clearCart();
     this.cartItems = [];
     this.totalPrice = 0;
   }
 
-  goToPaymentPage(): void {
-    this.router.navigate(['/payment'], { queryParams: { price: this.totalPrice } });
+  calculateTotalPrice(): void {
+    this.totalPrice = this.cartItems.reduce((sum, item) => sum + item.price, 0);
+  }
+
+  gotocart(): void {
+    this.router.navigate(['/payment']);
   }
 }
