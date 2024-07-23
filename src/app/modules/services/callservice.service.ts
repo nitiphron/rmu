@@ -111,6 +111,11 @@ export class CallserviceService {
     return this.http.delete(API_ENDPOINT.concat('/product/deleteImgByFileName?fileName=' + fileName));
   }
 
+  saveOrder(data: any): Observable<any> {
+    const body = JSON.stringify(data);
+    return this.http.post<any>(API_ENDPOINT.concat('/order/save'), body, httpOptions); // Adjust the API endpoint as per your backend implementation
+  }
+
   addToCart(product: any): void {
     const currentCart = this.cartSubject.value;
     currentCart.push(product);

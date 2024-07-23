@@ -1,44 +1,52 @@
-// order-status.component.ts
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { ProductService } from '../services/product.service'; // import ProductService ที่สร้างขึ้นมา
+import { CallserviceService } from '../services/callservice.service';
 
 @Component({
   selector: 'app-order-status',
   templateUrl: './order-status.component.html',
-  styleUrls: ['./order-status.component.css'] // เชื่อมโยงไฟล์ CSS ที่นี่
+  styleUrls: ['./order-status.component.css']
 })
 export class OrderStatusComponent implements OnInit {
   orderStatus: string = '';
-  orderDetails: any = {}; // เพิ่ม property สำหรับเก็บข้อมูลรายละเอียดคำสั่งซื้อ
-  cartItems: any[] = []; // เพิ่ม property สำหรับเก็บรายการสินค้าในตระกล้า
+  orderDetails: any = {};
+  cartItems: any[] = [];
 
   constructor(
     private router: Router,
-    private productService: ProductService // เพิ่ม ProductService เข้ามาใน constructor
+    private callService: CallserviceService
   ) {}
 
   ngOnInit(): void {
-    // ดึงข้อมูลสินค้าจากตระกล้า
-    this.productService.getCartItems().subscribe((items) => {
+    // Fetch cart items
+    this.callService.getCartItems().subscribe((items) => {
       this.cartItems = items;
+      this.updateOrderDetails();
     });
 
-    // ตั้งค่า order status แบบ hard-coded สำหรับตัวอย่าง
+    // Set order status
     this.orderStatus = 'คำสั่งซื้อของคุณได้รับการยืนยันแล้ว';
 
-    // ตั้งค่า order details แบบ hard-coded เพื่อตัวอย่าง
+    // Initialize order details
     this.orderDetails = {
-      orderId: '123456',
+      orderId: '123456', // Replace with actual orderId from backend
       orderDate: new Date(),
-      totalItems: this.cartItems.length, // จำนวนสินค้าทั้งหมดในตระกล้า
-      totalPrice: this.calculateTotalPrice(), // ราคารวมของสินค้าทั้งหมด
-      shippingAddress: '123 Street, City, Country'
-      // สามารถเพิ่มข้อมูลเพิ่มเติมตามที่ต้องการ
+      totalItems: 0,
+      totalPrice: 0,
+      shippingAddress: '123 Street, City, Country' // Replace with actual shipping address from backend
     };
+
+    // Save order to database
+    this.saveOrder();
   }
 
-  // ฟังก์ชันสำหรับคำนวณราคารวมของสินค้าทั้งหมด
+  // Function to update order details after fetching cart items
+  updateOrderDetails(): void {
+    this.orderDetails.totalItems = this.cartItems.length;
+    this.orderDetails.totalPrice = this.calculateTotalPrice();
+  }
+
+  // Function to calculate the total price of all items
   calculateTotalPrice(): number {
     let totalPrice = 0;
     for (const item of this.cartItems) {
@@ -47,7 +55,24 @@ export class OrderStatusComponent implements OnInit {
     return totalPrice;
   }
 
-  navigateToDashbordAdmin(): void {
-    this.router.navigate(['/dashbord-admin']); // แก้ไขชื่อ path ตามที่คุณต้องการ
+  // Function to save order to the database
+  saveOrder(): void {
+    const orderData = {
+      orderId: this.orderDetails.orderId,
+      orderDate: this.orderDetails.orderDate,
+      totalItems: this.orderDetails.totalItems,
+      totalPrice: this.orderDetails.totalPrice,
+      shippingAddress: this.orderDetails.shippingAddress
+    };
+
+    this.callService.saveOrder(orderData).subscribe(response => {
+      console.log('Order saved successfully:', response);
+    }, error => {
+      console.error('Error saving order:', error);
+    });
+  }
+
+  navigateToDashboardAdmin(): void {
+    this.router.navigate(['/dashbord-admin']); // Make sure this route exists in your application
   }
 }
