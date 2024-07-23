@@ -1,33 +1,12 @@
 <div class="order-status-container">
   <h2 class="order-status-header">Order Status</h2>
-  <p class="order-status-message">{{ orderStatus }}</p>
-
-  <!-- Order details section -->
-  <div class="order-details">
-    <p><strong>Order ID:</strong> {{ orderDetails.orderId }}</p>
-    <p><strong>Order Date:</strong> {{ orderDetails.orderDate | date }}</p>
-    <p><strong>Total Items:</strong> {{ orderDetails.totalItems }}</p>
-    <p><strong>Total Price:</strong> {{ orderDetails.totalPrice | currency:'THB' }}</p>
-    <p><strong>Shipping Address:</strong> {{ orderDetails.shippingAddress }}</p>
-    <!-- Additional details can be added here -->
-  </div>
-
-  <!-- Products section -->
-  <h3 class="order-products-header">Products</h3>
-  <ul class="products-list">
-    <li *ngFor="let item of cartItems" class="product-item">
-      <span class="product-name">{{ item.productName }}</span> -
-      <span class="product-price">{{ item.price | currency:'THB' }}</span>
-
-      <!-- Iterate over imgList -->
-      <div *ngFor="let img of item.imgList" class="product-image">
-        <img [src]="img" alt="Product Image">
-      </div>
-    </li>
-  </ul>
-
-  <!-- Button to navigate to dashboard admin -->
-  <div class="button-container">
+  <div *ngIf="orderDetails">
+    <h2>Order Status</h2>
+    <p><strong>Order ID:</strong> {{ orderDetails.id }}</p>
+    <p><strong>Address:</strong> {{ orderDetails.address }}</p>
+    <p><strong>City:</strong> {{ orderDetails.city }}</p>
+    <p><strong>Country:</strong> {{ orderDetails.country }}</p>
+   
     <button (click)="navigateToDashboardAdmin()">Home</button>
   </div>
 </div>

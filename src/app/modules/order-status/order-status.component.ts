@@ -11,6 +11,9 @@ export class OrderStatusComponent implements OnInit {
   orderStatus: string = '';
   orderDetails: any = {};
   cartItems: any[] = [];
+  address: string = '';
+  city: string = '';
+  country: string = '';
 
   constructor(
     private router: Router,
@@ -35,6 +38,9 @@ export class OrderStatusComponent implements OnInit {
       totalPrice: 0,
       shippingAddress: '123 Street, City, Country' // Replace with actual shipping address from backend
     };
+
+    // Extract address, city, and country from the shipping address
+    this.extractAddressDetails(this.orderDetails.shippingAddress);
 
     // Save order to database
     this.saveOrder();
@@ -72,7 +78,18 @@ export class OrderStatusComponent implements OnInit {
     });
   }
 
+  // Function to extract address, city, and country from the shipping address
+  extractAddressDetails(shippingAddress: string): void {
+    // Example logic for extracting details; adjust as needed
+    const parts = shippingAddress.split(',');
+    if (parts.length === 3) {
+      this.address = parts[0].trim();
+      this.city = parts[1].trim();
+      this.country = parts[2].trim();
+    }
+  }
+
   navigateToDashboardAdmin(): void {
-    this.router.navigate(['/dashbord-admin']); // Make sure this route exists in your application
+    this.router.navigate(['/dashboard-admin']); // Make sure this route exists in your application
   }
 }

@@ -5,8 +5,6 @@ import { environment } from 'src/environments/environment';
 
 const API_ENDPOINT = environment.API_ENDPOINT;
 const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json', 'accept': '*/*' }) };
-const httpOptionsMultipart = { headers: new HttpHeaders({ 'Content-Type': 'multipart/form-data', 'accept': '*/*' }) };
-const httpOptionsText = { headers: new HttpHeaders({ 'Content-Type': 'text/plain; charset=utf-8' }) };
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +15,44 @@ export class CallserviceService {
 
   constructor(private http: HttpClient) {}
 
+  // Existing methods...
+
+  // Function to add item to cart
+  addToCart(product: any): Observable<any> {
+    const currentCart = this.cartSubject.value;
+    currentCart.push(product);
+    this.cartSubject.next(currentCart);
+    // Optionally, call an API endpoint to save the cart on the backend
+    return this.http.post<any>(API_ENDPOINT.concat('/cart/add'), product, httpOptions);
+  }
+
+  // Function to update cart item quantity
+  updateCartItem(item: any): Observable<any> {
+    const body = JSON.stringify(item);
+    return this.http.put<any>(API_ENDPOINT.concat('/cart/update/' + item.id), body, httpOptions);
+  }
+
+  // Function to remove item from cart
+  removeFromCart(productId: any): Observable<any> {
+    const currentCart = this.cartSubject.value.filter(product => product.id !== productId);
+    this.cartSubject.next(currentCart);
+    // Call backend to remove item
+    return this.http.delete<any>(API_ENDPOINT.concat('/cart/remove/' + productId));
+  }
+
+  // Function to clear cart
+  clearCart(): Observable<any> {
+    this.cartSubject.next([]);
+    // Call backend to clear the cart
+    return this.http.delete<any>(API_ENDPOINT.concat('/cart/clear'));
+  }
+
+  // Function to get cart items
+  getCartItems(): Observable<any[]> {
+    return this.cart$;
+  }
+
+  // Other existing methods
   getAllRole(): Observable<any> {
     return this.http.get(API_ENDPOINT.concat('/role/getAll'));
   }
@@ -113,28 +149,6 @@ export class CallserviceService {
 
   saveOrder(data: any): Observable<any> {
     const body = JSON.stringify(data);
-    return this.http.post<any>(API_ENDPOINT.concat('/order/save'), body, httpOptions); // Adjust the API endpoint as per your backend implementation
-  }
-
-  addToCart(product: any): void {
-    const currentCart = this.cartSubject.value;
-    currentCart.push(product);
-    this.cartSubject.next(currentCart);
-  }
-
-  // ฟังก์ชันลบสินค้าออกจากตะกร้า
-  removeFromCart(productId: any): void {
-    const currentCart = this.cartSubject.value.filter(product => product.id !== productId);
-    this.cartSubject.next(currentCart);
-  }
-
-  // ฟังก์ชันล้างตะกร้า
-  clearCart(): void {
-    this.cartSubject.next([]);
-  }
-
-  // ฟังก์ชันเรียกดูรายการสินค้าในตะกร้า
-  getCartItems(): Observable<any[]> {
-    return this.cart$;
+    return this.http.post<any>(API_ENDPOINT.concat('/order/save'), body, httpOptions);
   }
 }
