@@ -99,3 +99,31 @@
 .btn-payment:hover {
   background-color: #27ae60;
 }
+
+
+/* สไตล์ที่ปรับแต่งสำหรับ SweetAlert2 */
+.alert-popup {
+  border-radius: 10px; /* ขนาดมุมโค้งของกล่องข้อความ */
+}
+
+.alert-title {
+  font-size: 24px; /* ขนาดฟอนต์ของหัวข้อ */
+  color: #333; /* สีของหัวข้อ */
+}
+
+.alert-content {
+  font-size: 16px; /* ขนาดฟอนต์ของข้อความ */
+  color: #555; /* สีของข้อความ */
+}
+
+.alert-confirm-button {
+  background-color: #3085d6; /* สีพื้นหลังของปุ่มยืนยัน */
+  color: #fff; /* สีข้อความของปุ่มยืนยัน */
+  border-radius: 5px; /* ขนาดมุมโค้งของปุ่มยืนยัน */
+}
+
+.alert-cancel-button {
+  background-color: #d33; /* สีพื้นหลังของปุ่มยกเลิก */
+  color: #fff; /* สีข้อความของปุ่มยกเลิก */
+  border-radius: 5px; /* ขนาดมุมโค้งของปุ่มยกเลิก */
+}

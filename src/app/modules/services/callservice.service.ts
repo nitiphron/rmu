@@ -175,4 +175,9 @@ export class CallserviceService {
   getOrderById(orderId: string): Observable<any> {
     return this.http.get<any>(API_ENDPOINT.concat('/order/getById?orderId=' + orderId));
   }
+
+  saveCart(data: any): Observable<any> {
+    const body = JSON.stringify(data);
+    return this.http.post<any>(API_ENDPOINT.concat('/api/cart/save'), body, httpOptions);
+  }
 }

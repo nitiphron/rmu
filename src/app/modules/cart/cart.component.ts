@@ -37,6 +37,6 @@ export class CartComponent implements OnInit {
   }
 
   gotocart(): void {
-    this.router.navigate(['/payment']);
+    this.router.navigate(['/order-status']);
   }
 }

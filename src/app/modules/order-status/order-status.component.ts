@@ -27,80 +27,80 @@ export class OrderStatusComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // Fetch cart items for displaying in the form
+    this.loadCartItems(); // โหลดข้อมูลตะกร้าเมื่อเริ่มต้น
+  }
+
+  loadCartItems(): void {
     this.callService.getCartItems().subscribe((items) => {
       this.cartItems = items;
-      this.totalPrice = this.calculateTotalPrice();
+      this.totalPrice = this.calculateTotalPrice(); // คำนวณราคาทั้งหมด
     });
   }
 
-  // Function to calculate the total price of all items
   calculateTotalPrice(): number {
     let totalPrice = 0;
     for (const item of this.cartItems) {
       totalPrice += item.price * item.quantity;
     }
-    return Math.floor(totalPrice); // Round down the price
+    return Math.floor(totalPrice); // ปัดเศษราคาทั้งหมด
   }
 
-  // Function to save the order to the database
-  saveOrder(): void {
-    const orderData = {
-      orderId: '123456', // Replace with actual logic for orderId
-      orderDate: new Date(),
-      totalItems: this.cartItems.length,
-      totalPrice: this.totalPrice,
-      shippingAddress: this.orderForm.value.address + ', ' + this.orderForm.value.city + ', ' + this.orderForm.value.country
-    };
-
-    this.callService.saveOrder(orderData).subscribe(response => {
-      Swal.fire({
-        icon: 'success',
-        title: 'สำเร็จ!',
-        text: 'คำสั่งซื้อของคุณถูกบันทึกเรียบร้อยแล้ว',
-        confirmButtonText: 'ตกลง'
-      });
-      this.clearCart(); // Optionally clear the cart after saving the order
-    }, error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'ผิดพลาด!',
-        text: 'ไม่สามารถบันทึกคำสั่งซื้อได้',
-        confirmButtonText: 'ตกลง'
-      });
-    });
-  }
-
-  // Function to clear the cart
   clearCart(): void {
     this.callService.clearCart().subscribe(() => {
-      this.cartItems = []; // Clear the local cart items
+      this.cartItems = []; // ลบข้อมูลในตะกร้า
+      this.totalPrice = 0; // รีเซ็ตค่าราคาทั้งหมด
+      this.router.navigate(['/payment']).then(() => {
+        console.log('การนำทางไปยัง /payment สำเร็จ');
+      }).catch(err => {
+        console.error('ข้อผิดพลาดในการนำทาง:', err);
+      });
     }, error => {
-      console.error('Error clearing cart:', error);
+      console.error('ข้อผิดพลาดในการลบตะกร้า:', error);
     });
   }
 
-  // Navigate to the payment page
   gotocart(): void {
     if (this.orderForm.invalid) {
+      let errorMessage = '';
+    
+      if (!this.orderForm.value.address) {
+        errorMessage = 'กรุณากรอกที่อยู่';
+      } else if (!this.orderForm.value.city) {
+        errorMessage = 'กรุณากรอกเมือง';
+      } else if (!this.orderForm.value.country) {
+        errorMessage = 'กรุณากรอกประเทศ';
+      }
+    
       Swal.fire({
         icon: 'warning',
         title: 'กรุณากรอกข้อมูลให้ครบถ้วน!',
-        text: 'ที่อยู่, เมือง และ ประเทศ จำเป็นต้องกรอกเพื่อดำเนินการชำระสินค้า',
-        confirmButtonText: 'ตกลง'
+        text: errorMessage,
+        confirmButtonText: 'ตกลง',
+        confirmButtonColor: '#3085d6',
+        iconColor: '#f39c12'
       });
       return;
     }
-
+    
     Swal.fire({
       title: 'ยืนยันการชำระสินค้า',
       text: "คุณต้องการชำระเงินจริงหรือไม่?",
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'ยืนยัน',
-      cancelButtonText: 'ยกเลิก'
+      cancelButtonText: 'ยกเลิก',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      customClass: {
+        popup: 'alert-popup',
+        title: 'alert-title',
+        confirmButton: 'alert-confirm-button',
+        cancelButton: 'alert-cancel-button'
+      }
     }).then((result) => {
       if (result.isConfirmed) {
+        this.clearCart(); // เรียกใช้ clearCart เพื่อจัดการการลบตะกร้า
+        // ทำการนำทางไปยังหน้า /payment หลังจากที่คำสั่งซื้อได้รับการบันทึกเรียบร้อยแล้ว
         this.router.navigate(['/payment']);
       }
     });

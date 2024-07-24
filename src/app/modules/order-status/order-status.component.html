@@ -1,7 +1,7 @@
 <div class="order-status-container">
   <h2 class="order-status-header">กรอกข้อมูลการสั่งซื้อ</h2>
 
-  <form [formGroup]="orderForm" (ngSubmit)="saveOrder()">
+  <form [formGroup]="orderForm" (ngSubmit)="clearCart()">
     <div class="form-group">
       <label for="address">ที่อยู่:</label>
       <input id="address" formControlName="address" type="text" class="form-control">
