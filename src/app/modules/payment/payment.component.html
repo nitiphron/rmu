@@ -1,13 +1,18 @@
 <div class="payment-container">
-  <h2>ชำระเงิน</h2>
-  <div class="qr-code">
-    <p>สแกน QR Code เพื่อชำระเงิน:</p>
-    <img src="assets/img/qr1.png" alt="QR Code Image">
+  <h2 class="payment-header">ชำระเงิน</h2>
+  
+  <div class="qr-code-section">
+    <p class="qr-text">สแกน QR Code เพื่อชำระเงิน:</p>
+    <div class="qr-code">
+      <img src="assets/img/qr1.png" alt="QR Code Image" />
+    </div>
   </div>
-  <div class="upload-slip">
-    <p>อัพโหลดสลิปการโอนเงิน:</p>
-    <input type="file" (change)="handleSlipUpload($event)" />
+  
+  <div class="upload-slip-section">
+    <p class="upload-text">อัพโหลดสลิปการโอนเงิน:</p>
+    <input type="file" (change)="handleSlipUpload($event)" class="file-input" />
     <img *ngIf="uploadedSlip" [src]="uploadedSlip" alt="Uploaded Slip" class="uploaded-slip-img" />
   </div>
+  
   <button class="btn-payment" (click)="processPayment()">ชำระสินค้า</button>
 </div>

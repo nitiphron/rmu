@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { CallserviceService } from '../services/callservice.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-order-status',
@@ -8,88 +10,99 @@ import { CallserviceService } from '../services/callservice.service';
   styleUrls: ['./order-status.component.css']
 })
 export class OrderStatusComponent implements OnInit {
-  orderStatus: string = '';
-  orderDetails: any = {};
+  orderForm: FormGroup;
   cartItems: any[] = [];
-  address: string = '';
-  city: string = '';
-  country: string = '';
+  totalPrice: number = 0;
 
   constructor(
+    private formBuilder: FormBuilder,
     private router: Router,
     private callService: CallserviceService
-  ) {}
-
-  ngOnInit(): void {
-    // Fetch cart items
-    this.callService.getCartItems().subscribe((items) => {
-      this.cartItems = items;
-      this.updateOrderDetails();
+  ) {
+    this.orderForm = this.formBuilder.group({
+      address: ['', Validators.required],
+      city: ['', Validators.required],
+      country: ['', Validators.required]
     });
-
-    // Set order status
-    this.orderStatus = 'คำสั่งซื้อของคุณได้รับการยืนยันแล้ว';
-
-    // Initialize order details
-    this.orderDetails = {
-      orderId: '123456', // Replace with actual orderId from backend
-      orderDate: new Date(),
-      totalItems: 0,
-      totalPrice: 0,
-      shippingAddress: '123 Street, City, Country' // Replace with actual shipping address from backend
-    };
-
-    // Extract address, city, and country from the shipping address
-    this.extractAddressDetails(this.orderDetails.shippingAddress);
-
-    // Save order to database
-    this.saveOrder();
   }
 
-  // Function to update order details after fetching cart items
-  updateOrderDetails(): void {
-    this.orderDetails.totalItems = this.cartItems.length;
-    this.orderDetails.totalPrice = this.calculateTotalPrice();
+  ngOnInit(): void {
+    // Fetch cart items for displaying in the form
+    this.callService.getCartItems().subscribe((items) => {
+      this.cartItems = items;
+      this.totalPrice = this.calculateTotalPrice();
+    });
   }
 
   // Function to calculate the total price of all items
   calculateTotalPrice(): number {
     let totalPrice = 0;
     for (const item of this.cartItems) {
-      totalPrice += item.price;
+      totalPrice += item.price * item.quantity;
     }
-    return totalPrice;
+    return Math.floor(totalPrice); // Round down the price
   }
 
-  // Function to save order to the database
+  // Function to save the order to the database
   saveOrder(): void {
     const orderData = {
-      orderId: this.orderDetails.orderId,
-      orderDate: this.orderDetails.orderDate,
-      totalItems: this.orderDetails.totalItems,
-      totalPrice: this.orderDetails.totalPrice,
-      shippingAddress: this.orderDetails.shippingAddress
+      orderId: '123456', // Replace with actual logic for orderId
+      orderDate: new Date(),
+      totalItems: this.cartItems.length,
+      totalPrice: this.totalPrice,
+      shippingAddress: this.orderForm.value.address + ', ' + this.orderForm.value.city + ', ' + this.orderForm.value.country
     };
 
     this.callService.saveOrder(orderData).subscribe(response => {
-      console.log('Order saved successfully:', response);
+      Swal.fire({
+        icon: 'success',
+        title: 'สำเร็จ!',
+        text: 'คำสั่งซื้อของคุณถูกบันทึกเรียบร้อยแล้ว',
+        confirmButtonText: 'ตกลง'
+      });
+      this.clearCart(); // Optionally clear the cart after saving the order
     }, error => {
-      console.error('Error saving order:', error);
+      Swal.fire({
+        icon: 'error',
+        title: 'ผิดพลาด!',
+        text: 'ไม่สามารถบันทึกคำสั่งซื้อได้',
+        confirmButtonText: 'ตกลง'
+      });
     });
   }
 
-  // Function to extract address, city, and country from the shipping address
-  extractAddressDetails(shippingAddress: string): void {
-    // Example logic for extracting details; adjust as needed
-    const parts = shippingAddress.split(',');
-    if (parts.length === 3) {
-      this.address = parts[0].trim();
-      this.city = parts[1].trim();
-      this.country = parts[2].trim();
-    }
+  // Function to clear the cart
+  clearCart(): void {
+    this.callService.clearCart().subscribe(() => {
+      this.cartItems = []; // Clear the local cart items
+    }, error => {
+      console.error('Error clearing cart:', error);
+    });
   }
 
-  navigateToDashboardAdmin(): void {
-    this.router.navigate(['/dashboard-admin']); // Make sure this route exists in your application
+  // Navigate to the payment page
+  gotocart(): void {
+    if (this.orderForm.invalid) {
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณากรอกข้อมูลให้ครบถ้วน!',
+        text: 'ที่อยู่, เมือง และ ประเทศ จำเป็นต้องกรอกเพื่อดำเนินการชำระสินค้า',
+        confirmButtonText: 'ตกลง'
+      });
+      return;
+    }
+
+    Swal.fire({
+      title: 'ยืนยันการชำระสินค้า',
+      text: "คุณต้องการชำระเงินจริงหรือไม่?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'ยืนยัน',
+      cancelButtonText: 'ยกเลิก'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.router.navigate(['/payment']);
+      }
+    });
   }
 }

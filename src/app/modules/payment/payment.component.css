@@ -1,49 +1,83 @@
+/* Style for the entire payment container */
 .payment-container {
-  padding: 20px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
   width: 80%;
+  max-width: 600px;
   margin: 0 auto;
-  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #ffffff;
+  font-family: 'Arial', sans-serif;
 }
 
-h2 {
+/* Header style */
+.payment-header {
   text-align: center;
   color: #333;
-}
-
-.qr-code {
-  text-align: center;
   margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-.qr-code-img {
-  width: 200px;
-  height: 200px;
-}
-
-.upload-slip {
+/* Style for the QR code section */
+.qr-code-section {
+  margin-bottom: 30px;
   text-align: center;
-  margin-bottom: 20px;
+}
+
+.qr-text {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.qr-code img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+}
+
+/* Style for the upload slip section */
+.upload-slip-section {
+  margin-bottom: 30px;
+}
+
+.upload-text {
+  font-size: 18px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.file-input {
+  display: block;
+  margin: 0 auto;
+  font-size: 16px;
 }
 
 .uploaded-slip-img {
-  width: 200px;
-  height: 200px;
-  margin-top: 10px;
+  display: block;
+  margin: 20px auto;
+  max-width: 100%;
+  height: auto;
+  border: 2px solid #ddd;
+  border-radius: 8px;
 }
 
+/* Style for the payment button */
 .btn-payment {
   display: block;
   width: 100%;
-  background-color: #2ecc71;
+  padding: 15px;
+  font-size: 18px;
   color: #fff;
+  background-color: #007bff;
   border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 .btn-payment:hover {
-  background-color: #27ae60;
+  background-color: #0056b3;
 }

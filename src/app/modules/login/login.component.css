@@ -1,0 +1,95 @@
+/* สไตล์ทั่วไปของคอนเทนเนอร์พร้อมภาพพื้นหลัง */
+.login-container {
+  width: 80%; /* ขยายความกว้างของฟอร์ม */
+  max-width: 500px; /* ขยายขนาดสูงสุดของฟอร์ม */
+  margin: 60px auto; /* เพิ่มระยะห่างรอบฟอร์ม */
+  padding: 30px; /* เพิ่มระยะห่างภายในฟอร์ม */
+  border-radius: 15px; /* เพิ่มขนาดมุมโค้งของฟอร์ม */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* เพิ่มเงาให้ลึกขึ้น */
+  background: rgba(255, 255, 255, 0.8); /* พื้นหลังขาวใสเล็กน้อย */
+  backdrop-filter: blur(8px); /* เพิ่มเอฟเฟกต์เบลอพื้นหลัง */
+  font-family: 'Arial', sans-serif;
+  position: relative; /* ให้แน่ใจว่าการซ้อนทับและภาพพื้นหลังครอบคลุมคอนเทนเนอร์ */
+  overflow: hidden; /* ซ่อนสิ่งที่ล้นออกมาจากมุมโค้ง */
+}
+
+/* สไตล์ของภาพพื้นหลัง */
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/img/sinkar.jpg') no-repeat center center;
+  background-size: cover;
+  z-index: -2; /* วางภาพพื้นหลังไว้ด้านหลังคอนเทนเนอร์และการซ้อนทับ */
+}
+
+/* การซ้อนทับเพื่อเพิ่มความสามารถในการอ่านของข้อความ */
+.login-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.3); /* ซ้อนทับสีดำที่มีความทึบ 30% */
+  z-index: -1; /* วางการซ้อนทับระหว่างภาพพื้นหลังและเนื้อหา */
+  border-radius: 15px; /* ทำให้มุมโค้งตรงกับคอนเทนเนอร์ */
+}
+
+/* สไตล์หัวข้อ */
+.login-header {
+  text-align: center;
+  color: #fff; /* ข้อความสีขาวเพื่อความตัดกันที่ดีขึ้นบนการซ้อนทับมืด */
+  margin-bottom: 30px; /* เพิ่มระยะห่างใต้หัวข้อ */
+  font-size: 32px; /* ขนาดฟอนต์ใหญ่ขึ้นสำหรับหัวข้อ */
+  font-weight: bold;
+}
+
+/* สไตล์ฟอร์ม */
+.login-form .form-group {
+  margin-bottom: 20px; /* เพิ่มระยะห่างระหว่างกลุ่มฟอร์ม */
+}
+
+.login-form label {
+  display: block;
+  margin-bottom: 10px; /* เพิ่มระยะห่างใต้ป้าย */
+  color: #fff; /* ข้อความสีขาวสำหรับป้าย */
+  font-size: 18px; /* ขนาดฟอนต์ใหญ่ขึ้นสำหรับป้าย */
+}
+
+.login-form .form-control {
+  width: 100%;
+  padding: 15px; /* เพิ่มระยะห่างภายในช่องกรอกข้อมูล */
+  font-size: 16px; /* ขนาดฟอนต์ใหญ่ขึ้นสำหรับช่องกรอกข้อมูล */
+  border: 1px solid #ddd;
+  border-radius: 8px; /* ขนาดมุมโค้งใหญ่ขึ้นสำหรับช่องกรอกข้อมูล */
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: #fff; /* พื้นหลังสีขาวสำหรับช่องกรอกข้อมูล */
+}
+
+.login-form .form-control:focus {
+  border-color: rgba(4, 191, 224, 0.5);
+  box-shadow: 0 0 6px rgba(4, 191, 224, 0.5);
+  outline: none;
+}
+
+/* สไตล์ปุ่ม */
+.btn-submit {
+  display: block;
+  width: 100%;
+  padding: 15px; /* เพิ่มระยะห่างภายในปุ่ม */
+  font-size: 16px; /* ขนาดฟอนต์ใหญ่ขึ้นสำหรับข้อความปุ่ม */
+  color: #fff;
+  background-color: rgba(4, 191, 224, 0.7); /* สีพื้นหลังปุ่ม */
+  border: none;
+  border-radius: 8px; /* ขนาดมุมโค้งใหญ่ขึ้นสำหรับปุ่ม */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-submit:hover {
+  background-color: rgba(4, 191, 224, 0.5); /* สีพื้นหลังเมื่อชี้เมาส์ไปที่ปุ่ม */
+}

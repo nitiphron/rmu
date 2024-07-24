@@ -1,16 +1,19 @@
 .product-container {
     display: flex;
     flex-wrap: wrap;
-    gap: 1px; /* ระยะห่างระหว่างสินค้าแต่ละชิ้น */
+    gap: 6px; /* ระยะห่างระหว่างสินค้าแต่ละชิ้น */
     justify-content: space-between;
   }
   
   .product-item {
-    border: 8px solid #53f0ea;
+    box-shadow: 0 2px 200px rgba(0, 0, 0, 0.1); /* เงาด้วยสีเทาอ่อน */
     padding: 1px;
-    width: calc(33%); /* กำหนดให้แต่ละช่องกว้างประมาณ 1 ใน 3 ของพื้นที่ที่มี */
+    width: calc(33%); /* กำหนดให้แต่ละช่องกว้างประมาณ 1 ใน 3 ของพื้นที่ที่มี บวกกับระยะห่าง */
     box-sizing: border-box;
+    background-color: #ffffffde; /* เพิ่มสีพื้นหลังเพื่อให้มองเห็นเงาได้ชัดเจน */
+    border-radius: 8px; /* เพิ่มมุมโค้ง */
   }
+  
   
   .product-image {
     width: 30%;

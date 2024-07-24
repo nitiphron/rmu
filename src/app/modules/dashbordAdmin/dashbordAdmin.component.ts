@@ -87,6 +87,6 @@ export class DashbordAdminComponent implements OnInit, OnDestroy {
 
   addToCart(product: any) {
     this.callService.addToCart(product);
-    this.router.navigate(['/cart']);
+    this.router.navigate(['/order-status']);
   }
 }

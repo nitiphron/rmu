@@ -1,50 +1,64 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+const API_ENDPOINT = environment.API_ENDPOINT;
+
+interface CartItem {
+  id: number;
+  productId: number;
+  productName: string;
+  price: number;
+  quantity: number;
+  createdAt: Date;
+  imageUrl: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
-export class CallserviceService {
+export class CartService {
+  private cartItems: CartItem[] = []; // เริ่มต้นด้วยรายการสินค้าในรถเข็นที่มีอยู่
+  private qrCodeImage: string = ''; // เส้นทางภาพ QR code
 
-  private baseUrl = '/api/cart'; // Assuming your API base URL
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) { }
-
-  // Method to remove item from cart
-  removeFromCart(productId: any): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/${productId}`).pipe(
-      catchError(this.handleError)
-    );
+  getAllCartItems(): Observable<CartItem[]> {
+    return this.http.get<CartItem[]>(`${API_ENDPOINT}/api/cart/getAllcart`);
   }
 
-  // Method to clear cart
-  clearCart(): Observable<any> {
-    return this.http.delete<any>(`${this.baseUrl}/clear`).pipe(
-      catchError(this.handleError)
-    );
+  getByIdCart(cartId: number): Observable<CartItem[]> {
+    return this.http.get<CartItem[]>(`${API_ENDPOINT}/api/cart/getById?cartId=${cartId}`);
   }
 
-  // Method to get cart items
-  getCartItems(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/items`).pipe(
-      catchError(this.handleError)
-    );
+  addCartItem(cartItem: CartItem): Observable<CartItem> {
+    return this.http.post<CartItem>(`${API_ENDPOINT}/api/cart/add`, cartItem);
   }
 
-  // Error handling function
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      // Client-side error
-      console.error('An error occurred:', error.error.message);
-    } else {
-      // Server-side error
-      console.error(
-        `Backend returned code ${error.status}, ` +
-        `body was: ${error.error}`);
-    }
-    // Return an observable with a user-facing error message
-    return throwError('Something bad happened; please try again later.');
+  deleteCartItem(id: number): Observable<void> {
+    return this.http.delete<void>(`${API_ENDPOINT}/api/cart/delete/${id}`);
+  }
+
+  clearCart(): Observable<void> {
+    return this.http.delete<void>(`${API_ENDPOINT}/api/cart/clear`);
+  }
+
+  setQrCodeImage(imagePath: string): void {
+    this.qrCodeImage = imagePath;
+  }
+
+  getQrCodeImage(): Observable<string> {
+    return of(this.qrCodeImage);
+  }
+
+  saveCart(data: any): Observable<any> {
+    const body = JSON.stringify(data);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    };
+    return this.http.post<any>(`${API_ENDPOINT}/api/cart/save`, body, httpOptions);
   }
 }

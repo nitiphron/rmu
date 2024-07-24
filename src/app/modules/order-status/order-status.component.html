@@ -1,12 +1,44 @@
 <div class="order-status-container">
-  <h2 class="order-status-header">Order Status</h2>
-  <div *ngIf="orderDetails">
-    <h2>Order Status</h2>
-    <p><strong>Order ID:</strong> {{ orderDetails.id }}</p>
-    <p><strong>Address:</strong> {{ orderDetails.address }}</p>
-    <p><strong>City:</strong> {{ orderDetails.city }}</p>
-    <p><strong>Country:</strong> {{ orderDetails.country }}</p>
-   
-    <button (click)="navigateToDashboardAdmin()">Home</button>
+  <h2 class="order-status-header">กรอกข้อมูลการสั่งซื้อ</h2>
+
+  <form [formGroup]="orderForm" (ngSubmit)="saveOrder()">
+    <div class="form-group">
+      <label for="address">ที่อยู่:</label>
+      <input id="address" formControlName="address" type="text" class="form-control">
+      <div *ngIf="orderForm.get('address')?.invalid && orderForm.get('address')?.touched" class="error-message">
+        ที่อยู่จำเป็นต้องกรอก
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="city">เมือง:</label>
+      <input id="city" formControlName="city" type="text" class="form-control">
+      <div *ngIf="orderForm.get('city')?.invalid && orderForm.get('city')?.touched" class="error-message">
+        เมืองจำเป็นต้องกรอก
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="country">ประเทศ:</label>
+      <input id="country" formControlName="country" type="text" class="form-control">
+      <div *ngIf="orderForm.get('country')?.invalid && orderForm.get('country')?.touched" class="error-message">
+        ประเทศจำเป็นต้องกรอก
+      </div>
+    </div>
+    <!-- <button type="submit" class="btn-save">บันทึกคำสั่งซื้อ</button> -->
+  </form>
+
+  <ul class="products-list">
+    <li *ngFor="let item of cartItems" class="product-item">
+      <span class="product-name">{{ item.productName }}</span> -
+      <span class="product-price">{{ item.price | currency:'THB' }}</span>
+      <div *ngFor="let img of item.imgList" class="product-image">
+        <img [src]="img" alt="รูปภาพสินค้า">
+      </div>
+    </li>
+  </ul>
+  <p class="total-price">ราคารวม: {{ totalPrice | currency:'THB':'symbol':'1.0-0' }}</p>
+
+  <div class="cart-buttons">
+    <button class="btn-clear" (click)="clearCart()">ล้างตะกร้า</button>
+    <button class="btn-payment" (click)="gotocart()" [disabled]="orderForm.invalid">ชำระสินค้า</button>
   </div>
 </div>
