@@ -71,7 +71,7 @@
   padding: 15px;
   font-size: 18px;
   color: #fff;
-  background-color: #007bff;
+  background-color: #05b328;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -79,5 +79,5 @@
 }
 
 .btn-payment:hover {
-  background-color: #0056b3;
+  background-color: #05b328;
 }

@@ -23,7 +23,7 @@ const routes: Routes = [
       { path: '', component: HomeComponent },
       { path: 'register', component: RegisterComponent },
       { path: 'login', component: LoginComponent },
-      { path: 'dashbord-admin', component: DashbordAdminComponent },
+      { path: 'home', component: DashbordAdminComponent },
       { path: 'profile', component: ProfileComponent },
       { path: 'manage-user', component: ManageUserComponent },
       { path: 'profile/:userId', component: ProfileComponent },

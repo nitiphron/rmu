@@ -43,7 +43,7 @@ export class PaymentComponent implements OnInit {
     if (this.isPaymentValid) {
       // หากตรวจสอบการชำระเงินถูกต้องให้ดำเนินการชำระเงิน
       alert('ชำระเงินเรียบร้อยแล้ว');
-      this.router.navigate(['/dashbord-admin']); // เปลี่ยนเส้นทางไปที่หน้าแสดงสถานะการสั่งซื้อ
+      this.router.navigate(['/home']); // เปลี่ยนเส้นทางไปที่หน้าแสดงสถานะการสั่งซื้อ
     } else {
       alert('กรุณาอัพโหลดสลิปการชำระเงินก่อนดำเนินการต่อ');
     }
