@@ -21,6 +21,9 @@
         <!-- <li *ngIf="null != userDetail">
           <a [routerLink]="['/order-status']" routerLinkActive="router-link-active" class="nav-link px-2 text-black">สถานะคำสั่งซื้อ</a>
         </li> -->
+         <!-- <li *ngIf="null != userDetail">
+          <a [routerLink]="['/manage']" routerLinkActive="router-link-active" class="nav-link px-2 text-black">สถานะคำสั่งซื้อ</a>
+        </li> -->
         <li *ngIf="null != userDetail && userDetail.roleId == 1">
           <a [routerLink]="['/manage-user']" routerLinkActive="router-link-active" class="nav-link px-2 text-black">จัดการลูกค้า</a>
         </li>

@@ -149,6 +149,7 @@ export class CallserviceService {
     return this.http.delete<any>(`${API_ENDPOINT}/product/deleteImgByFileName`, { params: { fileName } });
   }
 
+  // ฟังก์ชันจัดการคำสั่งซื้อ
   saveOrder(data: any): Observable<any> {
     return this.http.post<any>(`${API_ENDPOINT}/order/save`, JSON.stringify(data), httpOptions);
   }
@@ -157,7 +158,20 @@ export class CallserviceService {
     return this.http.get<any>(`${API_ENDPOINT}/order/getById`, { params: { orderId } });
   }
 
+  getOrders(): Observable<any[]> {
+    return this.http.get<any[]>(`${API_ENDPOINT}/order/getAll`);
+  }
+
+  deleteOrder(orderId: any): Observable<any> {
+    return this.http.delete<any>(`${API_ENDPOINT}/order/delete`, { params: { orderId } });
+  }
+
   saveCart(data: any): Observable<any> {
     return this.http.post<any>(`${API_ENDPOINT}/api/cart/save`, JSON.stringify(data), httpOptions);
   }
+
+  getAllOrders(): Observable<any[]> {
+    return this.http.get<any[]>(`${API_ENDPOINT}/order-status`);
+  }
+
 }

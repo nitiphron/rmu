@@ -22,37 +22,39 @@ export class OrderStatusComponent implements OnInit {
     this.orderForm = this.formBuilder.group({
       address: ['', Validators.required],
       city: ['', Validators.required],
-      country: ['', Validators.required]
+      postalCode: ['', Validators.required],
+      phoneNumber: ['', [Validators.required, Validators.pattern('^[0-9]{10}$')]], // Ensure phone number is 10 digits
+      amphoe: ['', Validators.required],
+      tambon: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    this.loadCartItems(); // โหลดข้อมูลตะกร้าเมื่อเริ่มต้น
+    this.loadCartItems(); // Load cart items on initialization
   }
 
   loadCartItems(): void {
     this.callService.getCartItems().subscribe((items) => {
       this.cartItems = items;
-      this.totalPrice = this.calculateTotalPrice(); // คำนวณราคาทั้งหมด
+      this.totalPrice = this.calculateTotalPrice(); // Calculate total price
     });
   }
 
   calculateTotalPrice(): number {
     return this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   }
-  
 
   clearCart(): void {
     this.callService.clearCart().subscribe(() => {
-      this.cartItems = []; // ลบข้อมูลในตะกร้า
-      this.totalPrice = 0; // รีเซ็ตค่าราคาทั้งหมด
+      this.cartItems = []; // Clear cart items
+      this.totalPrice = 0; // Reset total price
       this.router.navigate(['/payment']).then(() => {
-        console.log('การนำทางไปยัง /payment สำเร็จ');
+        console.log('Navigation to /payment successful');
       }).catch(err => {
-        console.error('ข้อผิดพลาดในการนำทาง:', err);
+        console.error('Navigation error:', err);
       });
     }, error => {
-      console.error('ข้อผิดพลาดในการลบตะกร้า:', error);
+      console.error('Error clearing cart:', error);
     });
   }
 
@@ -63,9 +65,15 @@ export class OrderStatusComponent implements OnInit {
       if (!this.orderForm.value.address) {
         errorMessage = 'กรุณากรอกที่อยู่';
       } else if (!this.orderForm.value.city) {
-        errorMessage = 'กรุณากรอกเมือง';
-      } else if (!this.orderForm.value.country) {
-        errorMessage = 'กรุณากรอกประเทศ';
+        errorMessage = 'กรุณากรอกจังหวัด';
+      } else if (!this.orderForm.value.postalCode) {
+        errorMessage = 'กรุณากรอกรหัสไปรษณีย์';
+      } else if (!this.orderForm.value.phoneNumber) {
+        errorMessage = 'กรุณากรอกเบอร์โทรศัพท์';
+      } else if (!this.orderForm.value.amphoe) {
+        errorMessage = 'กรุณากรอกอำเภอ';
+      } else if (!this.orderForm.value.tambon) {
+        errorMessage = 'กรุณากรอกตำบล';
       }
     
       Swal.fire({
@@ -96,8 +104,7 @@ export class OrderStatusComponent implements OnInit {
       }
     }).then((result) => {
       if (result.isConfirmed) {
-        this.clearCart(); // เรียกใช้ clearCart เพื่อจัดการการลบตะกร้า
-        // ทำการนำทางไปยังหน้า /payment หลังจากที่คำสั่งซื้อได้รับการบันทึกเรียบร้อยแล้ว
+        this.clearCart(); // Clear cart
         this.router.navigate(['/payment']);
       }
     });

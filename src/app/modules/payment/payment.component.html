@@ -1,18 +1,36 @@
 <div class="payment-container">
   <h2 class="payment-header">ชำระเงิน</h2>
-  
-  <div class="qr-code-section">
+
+  <!-- Payment Method Selection -->
+  <div class="payment-method-section">
+    <p class="payment-method-text">เลือกวิธีการชำระเงิน:</p>
+    <div class="payment-method-options">
+      <label>
+        <input type="radio" name="paymentMethod" value="qr" [(ngModel)]="selectedPaymentMethod" />
+        QR Code
+      </label>
+      <label>
+        <input type="radio" name="paymentMethod" value="cod" [(ngModel)]="selectedPaymentMethod" />
+        ชำระเงินปลายทาง
+      </label>
+    </div>
+  </div>
+
+  <!-- QR Code Section -->
+  <div *ngIf="selectedPaymentMethod === 'qr'" class="qr-code-section">
     <p class="qr-text">สแกน QR Code เพื่อชำระเงิน:</p>
     <div class="qr-code">
       <img src="assets/img/qr1.png" alt="QR Code Image" />
     </div>
   </div>
-  
-  <div class="upload-slip-section">
+
+  <!-- Upload Slip Section -->
+  <div *ngIf="selectedPaymentMethod === 'qr'" class="upload-slip-section">
     <p class="upload-text">อัพโหลดสลิปการโอนเงิน:</p>
     <input type="file" (change)="handleSlipUpload($event)" class="file-input" />
     <img *ngIf="uploadedSlip" [src]="uploadedSlip" alt="Uploaded Slip" class="uploaded-slip-img" />
   </div>
-  
+
+  <!-- Payment Button -->
   <button class="btn-payment" (click)="processPayment()">ชำระสินค้า</button>
 </div>

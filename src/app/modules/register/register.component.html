@@ -4,80 +4,105 @@
 		<h1 class="display-4 fw-bold">Register</h1>
 		<p class="fs-4">ต้องสมัครสมาชิกก่อน ถึงจะใช้งานระบบได้นะจ๊ะ</p>
 	  </div>
+	  <!-- ชื่อ -->
 	  <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-user"></i></span>
 		</div>
-		<input formControlName="firstName" class="form-control" placeholder="First name" type="text">
+		<input formControlName="firstName" class="form-control" placeholder="ชื่อ" type="text">
 	  </div>
+  
+	  <!-- นามสกุล -->
 	  <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-user"></i></span>
 		</div>
-		<input formControlName="lastName" class="form-control" placeholder="Last name" type="text">
+		<input formControlName="lastName" class="form-control" placeholder="นามสกุล" type="text">
 	  </div>
+  
+	  <!-- เบอร์โทร -->
 	  <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-phone"></i></span>
 		</div>
-		<input formControlName="phone" class="form-control" placeholder="Phone number" type="text">
+		<input formControlName="phone" class="form-control" placeholder="เบอร์โทร" type="text">
 	  </div>
+  
+	  <!-- อายุ -->
 	  <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-calendar"></i></span>
 		</div>
-		<input formControlName="age" class="form-control" placeholder="Age" type="text">
+		<input formControlName="age" class="form-control" placeholder="อายุ" type="text">
 	  </div>
-	  <div class="form-group input-group">
+  
+	  <!-- Role (ถูกคอมเมนต์ออก) -->
+	  <!-- <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-building"></i></span>
 		</div>
-		<!-- <select class="form-control" formControlName="roleId">
+		<select class="form-control" formControlName="roleId">
 		  <option value="">กรุณาเลือก Role</option>
 		  <option *ngFor="let item of roleList" [value]="item.id">{{item.roleName}}</option>
-		</select> -->
-	  </div>
+		</select>
+	  </div> -->
+  
+	  <!-- ชื่อผู้ใช้ -->
 	  <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-user"></i></span>
 		</div>
-		<input formControlName="userName" class="form-control" placeholder="Username" type="text">
+		<input formControlName="userName" class="form-control" placeholder="ชื่อผู้ใช้" type="text">
 	  </div>
+  
+	  <!-- รหัสผ่าน -->
 	  <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-lock"></i></span>
 		</div>
-		<input formControlName="password" class="form-control" placeholder="Create password" type="password">
+		<input formControlName="password" class="form-control" placeholder="สร้างรหัสผ่าน" type="password">
 	  </div>
+  
+	  <!-- ยืนยันรหัสผ่าน -->
 	  <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-lock"></i></span>
 		</div>
-		<input formControlName="confirmPassword" class="form-control" placeholder="Repeat password" type="password">
+		<input formControlName="confirmPassword" class="form-control" placeholder="ยืนยันรหัสผ่าน" type="password">
 	  </div>
+  
+	  <!-- ที่อยู่ -->
 	  <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-home"></i></span>
 		</div>
-		<input formControlName="address" class="form-control" placeholder="Address" type="text">
+		<input formControlName="address" class="form-control" placeholder="ที่อยู่" type="text">
 	  </div>
+  
+	  <!-- เมือง -->
 	  <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-map-marker"></i></span>
 		</div>
-		<input formControlName="city" class="form-control" placeholder="City" type="text">
+		<input formControlName="city" class="form-control" placeholder="เมือง" type="text">
 	  </div>
+  
+	  <!-- ประเทศ -->
 	  <div class="form-group input-group">
 		<div class="input-group-prepend">
 		  <span class="input-group-text"><i class="fa fa-globe"></i></span>
 		</div>
-		<input formControlName="country" class="form-control" placeholder="Country" type="text">
+		<input formControlName="country" class="form-control" placeholder="ประเทศ" type="text">
 	  </div>
+  
+	  <!-- ข้อความเตือนรหัสผ่าน -->
 	  <div>
 		<p *ngIf="isPassword" class="warning-text">กรุณากรอก Password ให้ตรงกันกับด้านบ้านด้วยค่ะ</p>
 	  </div>
+  
+	  <!-- ปุ่มบันทึก -->
 	  <div class="form-group">
-		<button type="submit" class="btn btn-submit">Save Account</button>
+		<button type="submit" class="btn btn-submit">บันทึก</button>
 	  </div>
 	</div>
   </form>

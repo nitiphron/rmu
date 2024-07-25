@@ -1,27 +1,33 @@
 /* cart.component.css */
 .cart-container {
-  padding: 20px;
+  padding: 50px; /* ลดการ padding */
   background-color: #f9f9f9;
+  
+  border-radius: 20px;
+  margin: auto; /* จัดกลางหน้าจอ */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* เพิ่มเงาสีดำ */
+  
 }
 
 .cart-items {
-  margin-top: 20px;
+  margin-top: 15px; /* ลดช่องว่างด้านบน */
 }
 
 .cart-item {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
-  padding: 10px;
+  margin-bottom: 15px; /* ลดช่องว่างด้านล่าง */
+  padding: 8px; /* ลดการ padding */
   border: 1px solid #ddd;
   background-color: #fff;
+  border-radius: 5px; /* เพิ่มมุมโค้ง */
 }
 
 .cart-item-img {
-  width: 100px;
-  height: 100px;
+  width: 80px; /* ลดขนาดภาพ */
+  height: 80px;
   object-fit: cover;
-  margin-right: 20px;
+  margin-right: 15px; /* ลดช่องว่างด้านข้าง */
 }
 
 .cart-item-details {
@@ -34,13 +40,13 @@
 }
 
 .quantity-control button {
-  width: 30px;
-  height: 30px;
+  width: 25px; /* ลดขนาดปุ่ม */
+  height: 25px;
   border: none;
   color: #fff;
-  font-size: 16px;
+  font-size: 14px; /* ลดขนาดตัวอักษร */
   cursor: pointer;
-  margin: 0 5px;
+  margin: 0 3px; /* ลดช่องว่างระหว่างปุ่ม */
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -64,18 +70,19 @@
 }
 
 .quantity-control span {
-  font-size: 16px;
-  margin: 0 10px;
+  font-size: 14px; /* ลดขนาดตัวอักษร */
+  margin: 0 5px; /* ลดช่องว่างด้านข้าง */
 }
 
 .btn-remove {
   background-color: #dc3545;
   color: #fff;
   border: none;
-  padding: 5px 10px;
+  padding: 5px 8px; /* ลดขนาด padding */
   cursor: pointer;
   border-radius: 5px;
   margin-top: 10px; /* ขยับปุ่มลงด้านล่าง */
+  font-size: 14px; /* ลดขนาดตัวอักษร */
 }
 
 .btn-remove:hover {
@@ -83,12 +90,12 @@
 }
 
 .total-price {
-  font-size: 18px;
-  margin-top: 20px;
+  font-size: 16px; /* ลดขนาดตัวอักษร */
+  margin-top: 15px; /* ลดช่องว่างด้านบน */
 }
 
 .cart-buttons {
-  margin-top: 20px;
+  margin-top: 15px; /* ลดช่องว่างด้านบน */
   display: flex;
   justify-content: space-between;
 }
@@ -96,9 +103,10 @@
 .btn-clear, .btn-payment {
   color: #fff;
   border: none;
-  padding: 10px 15px;
+  padding: 8px 12px; /* ลดขนาด padding */
   border-radius: 5px;
   cursor: pointer;
+  font-size: 14px; /* ลดขนาดตัวอักษร */
 }
 
 .btn-clear {

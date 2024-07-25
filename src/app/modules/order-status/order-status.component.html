@@ -10,20 +10,41 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="city">เมือง:</label>
+      <label for="city">จังหวัด:</label>
       <input id="city" formControlName="city" type="text" class="form-control">
       <div *ngIf="orderForm.get('city')?.invalid && orderForm.get('city')?.touched" class="error-message">
-        เมืองจำเป็นต้องกรอก
+        จังหวัดจำเป็นต้องกรอก
       </div>
     </div>
     <div class="form-group">
-      <label for="country">ประเทศ:</label>
-      <input id="country" formControlName="country" type="text" class="form-control">
-      <div *ngIf="orderForm.get('country')?.invalid && orderForm.get('country')?.touched" class="error-message">
-        ประเทศจำเป็นต้องกรอก
+      <label for="postalCode">รหัสไปรษณีย์:</label>
+      <input id="postalCode" formControlName="postalCode" type="text" class="form-control">
+      <div *ngIf="orderForm.get('postalCode')?.invalid && orderForm.get('postalCode')?.touched" class="error-message">
+        รหัสไปรษณีย์จำเป็นต้องกรอก
       </div>
     </div>
-    
+    <div class="form-group">
+      <label for="phoneNumber">เบอร์โทรศัพท์:</label>
+      <input id="phoneNumber" formControlName="phoneNumber" type="text" class="form-control">
+      <div *ngIf="orderForm.get('phoneNumber')?.invalid && orderForm.get('phoneNumber')?.touched" class="error-message">
+        เบอร์โทรศัพท์จำเป็นต้องกรอก และต้องเป็น 10 หลัก
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="amphoe">อำเภอ:</label>
+      <input id="amphoe" formControlName="amphoe" type="text" class="form-control">
+      <div *ngIf="orderForm.get('amphoe')?.invalid && orderForm.get('amphoe')?.touched" class="error-message">
+        อำเภอจำเป็นต้องกรอก
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="tambon">ตำบล:</label>
+      <input id="tambon" formControlName="tambon" type="text" class="form-control">
+      <div *ngIf="orderForm.get('tambon')?.invalid && orderForm.get('tambon')?.touched" class="error-message">
+        ตำบลจำเป็นต้องกรอก
+      </div>
+    </div>
+
     <!-- <button type="submit" class="btn-save" [disabled]="orderForm.invalid">บันทึกคำสั่งซื้อ</button> -->
   </form>
 
@@ -40,7 +61,7 @@
   <p class="total-price">ราคารวม: {{ totalPrice | currency:'THB':'symbol':'1.0-0' }}</p>
 
   <div class="cart-buttons">
-    <!-- <button class="btn-clear" (click)="clearCart()">ล้างตะกร้า</button> -->
+    <button class="btn-clear" (click)="clearCart()">ล้างตะกร้า</button>
     <button class="btn-payment" (click)="gotocart()" [disabled]="orderForm.invalid">ชำระสินค้า</button>
   </div>
 </div>

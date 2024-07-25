@@ -1,0 +1,29 @@
+<div class="order-management-container">
+    <h2>จัดการคำสั่งซื้อ</h2>
+    <table class="orders-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>ที่อยู่</th>
+          <th>เมือง</th>
+          <th>ประเทศ</th>
+          <th>ราคา</th>
+          <th>การกระทำ</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let order of orders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.address }}</td>
+          <td>{{ order.city }}</td>
+          <td>{{ order.country }}</td>
+          <td>{{ order.price }}</td>
+          <td>
+            <button (click)="viewOrderDetails(order)" class="btn btn-info">ดูรายละเอียด</button>
+            <button (click)="deleteOrder(order.id)" class="btn btn-danger">ลบ</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

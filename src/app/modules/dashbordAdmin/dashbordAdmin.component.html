@@ -10,11 +10,9 @@
     <!-- Displaying product details -->
     <p>ประเภท: {{ product.productType[0]?.productTypeName }}</p>
     <p>ราคา: {{ product.price | currency:'THB' }}</p>
-    <p>จำนวน: {{ product.quantity }}</p>
+    <!-- <p>จำนวน: {{ product.quantity }}</p> -->
     
     <!-- Add to Cart button -->
-    <button (click)="addToCart(product)">Add to Cart</button>
+    <button (click)="addToCart(product)">เพิ่มลงตระกล้า</button>
   </div>
 </div>
-
-

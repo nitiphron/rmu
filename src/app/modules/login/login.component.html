@@ -1,14 +1,14 @@
 <div class="login-container">
-  <h2 class="login-header">Login</h2>
+  <h2 class="login-header">เข้าสู่ระบบ</h2>
   <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
     <div class="form-group">
-      <label for="exampleInputUsername">Username</label>
+      <label for="exampleInputUsername">ชื่อผู้ใช้</label>
       <input type="email" class="form-control" id="exampleInputUsername" aria-describedby="emailHelp" placeholder="Enter Username" formControlName="userName">
     </div>
     <div class="form-group">
-      <label for="exampleInputPassword1">Password</label>
+      <label for="exampleInputPassword1">รหัสผ่าน</label>
       <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" formControlName="password">
     </div>
-    <button type="submit" class="btn-submit">Submit</button>
+    <button type="submit" class="btn-submit">เข้าสู่ระบบ</button>
   </form>
 </div>
