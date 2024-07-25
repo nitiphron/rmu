@@ -1,7 +1,7 @@
 <div class="order-status-container">
   <h2 class="order-status-header">กรอกข้อมูลการสั่งซื้อ</h2>
 
-  <form [formGroup]="orderForm" (ngSubmit)="clearCart()">
+  <form [formGroup]="orderForm" (ngSubmit)="gotocart()">
     <div class="form-group">
       <label for="address">ที่อยู่:</label>
       <input id="address" formControlName="address" type="text" class="form-control">
@@ -23,12 +23,14 @@
         ประเทศจำเป็นต้องกรอก
       </div>
     </div>
-    <!-- <button type="submit" class="btn-save">บันทึกคำสั่งซื้อ</button> -->
+    
+    <!-- <button type="submit" class="btn-save" [disabled]="orderForm.invalid">บันทึกคำสั่งซื้อ</button> -->
   </form>
 
   <ul class="products-list">
     <li *ngFor="let item of cartItems" class="product-item">
-      <span class="product-name">{{ item.productName }}</span> -
+      <span class="product-name">{{ item.productName }}</span> - 
+      <span class="product-quantity">จำนวน: {{ item.quantity }}</span> - 
       <span class="product-price">{{ item.price | currency:'THB' }}</span>
       <div *ngFor="let img of item.imgList" class="product-image">
         <img [src]="img" alt="รูปภาพสินค้า">
@@ -38,7 +40,7 @@
   <p class="total-price">ราคารวม: {{ totalPrice | currency:'THB':'symbol':'1.0-0' }}</p>
 
   <div class="cart-buttons">
-    <button class="btn-clear" (click)="clearCart()">ล้างตะกร้า</button>
+    <!-- <button class="btn-clear" (click)="clearCart()">ล้างตะกร้า</button> -->
     <button class="btn-payment" (click)="gotocart()" [disabled]="orderForm.invalid">ชำระสินค้า</button>
   </div>
 </div>

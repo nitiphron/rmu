@@ -38,12 +38,9 @@ export class OrderStatusComponent implements OnInit {
   }
 
   calculateTotalPrice(): number {
-    let totalPrice = 0;
-    for (const item of this.cartItems) {
-      totalPrice += item.price * item.quantity;
-    }
-    return Math.floor(totalPrice); // ปัดเศษราคาทั้งหมด
+    return this.cartItems.reduce((total, item) => total + (item.price * item.quantity), 0);
   }
+  
 
   clearCart(): void {
     this.callService.clearCart().subscribe(() => {

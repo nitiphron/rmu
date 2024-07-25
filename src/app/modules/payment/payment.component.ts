@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-payment',
@@ -41,11 +42,35 @@ export class PaymentComponent implements OnInit {
   // ฟังก์ชันจัดการการกดปุ่มชำระเงิน
   processPayment() {
     if (this.isPaymentValid) {
-      // หากตรวจสอบการชำระเงินถูกต้องให้ดำเนินการชำระเงิน
-      alert('ชำระเงินเรียบร้อยแล้ว');
-      this.router.navigate(['/home']); // เปลี่ยนเส้นทางไปที่หน้าแสดงสถานะการสั่งซื้อ
+      Swal.fire({
+        title: 'ยืนยันการชำระเงิน',
+        text: 'คุณต้องการยืนยันการชำระเงินหรือไม่?',
+        icon: 'question',
+        showCancelButton: true,
+        confirmButtonText: 'ยืนยัน',
+        cancelButtonText: 'ยกเลิก',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          // หากผู้ใช้ยืนยันการชำระเงิน
+          Swal.fire(
+            'สำเร็จ!',
+            'ชำระเงินเรียบร้อยแล้ว',
+            'success'
+          ).then(() => {
+            this.router.navigate(['/home']); // เปลี่ยนเส้นทางไปที่หน้า /home
+          });
+        }
+      });
     } else {
-      alert('กรุณาอัพโหลดสลิปการชำระเงินก่อนดำเนินการต่อ');
+      Swal.fire({
+        icon: 'warning',
+        title: 'กรุณาอัพโหลดสลิปการชำระเงิน',
+        text: 'ก่อนที่จะดำเนินการชำระสินค้า',
+        confirmButtonText: 'ตกลง',
+        confirmButtonColor: '#3085d6'
+      });
     }
   }
 }

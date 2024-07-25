@@ -1,3 +1,4 @@
+// cart.component.ts
 import { Component, OnInit } from '@angular/core';
 import { CallserviceService } from '../services/callservice.service';
 import { Router } from '@angular/router';
@@ -32,9 +33,27 @@ export class CartComponent implements OnInit {
     this.totalPrice = 0;
   }
 
-  calculateTotalPrice(): void {
-    this.totalPrice = this.cartItems.reduce((sum, item) => sum + item.price, 0);
+  increaseQuantity(item: any): void {
+    item.quantity++;
+    this.callService.updateCartItemQuantity(item.id, item.quantity).subscribe(() => {
+      this.calculateTotalPrice();
+    });
   }
+  
+  decreaseQuantity(item: any): void {
+    if (item.quantity > 1) {
+      item.quantity--;
+      this.callService.updateCartItemQuantity(item.id, item.quantity).subscribe(() => {
+        this.calculateTotalPrice();
+      });
+    }
+  }
+  
+
+  calculateTotalPrice(): void {
+    this.totalPrice = this.cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  }
+  
 
   gotocart(): void {
     this.router.navigate(['/order-status']);

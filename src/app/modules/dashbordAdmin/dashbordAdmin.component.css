@@ -6,7 +6,7 @@
   }
   
   .product-item {
-    box-shadow: 0 2px 200px rgba(0, 0, 0, 0.1); /* เงาด้วยสีเทาอ่อน */
+    box-shadow: 0 2px 200px rgba(12, 12, 12, 0.1); /* เงาด้วยสีเทาอ่อน */
     padding: 1px;
     width: calc(33%); /* กำหนดให้แต่ละช่องกว้างประมาณ 1 ใน 3 ของพื้นที่ที่มี บวกกับระยะห่าง */
     box-sizing: border-box;
